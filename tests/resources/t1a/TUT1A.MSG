@@ -1,0 +1,102 @@
+<eclipse>
+<message source="eclrun" date="" time="0">
+Executing ECLIPSE on pc system with x86_64 architecture named Research044
+</message>
+<message source="eclrun" date="" time="0">
+Process ID is 77020
+</message>
+<message date="1/1/2020" time="0.00000000000000">
+ CHECKING FOR LICENSES                                                   
+</message>
+<message date="1/1/2020" time="0.00000000000000">
+ CHECKING FOR LICENSES                                                   
+</message>
+<message date="1/1/2020" time="0.00000000000000">
+ THE MEMORY REQUIRED TO PROCESS THE GRID SECTION IS                      
+     193716 BYTES                                                        
+</message>
+<message date="1/1/2020" time="0.00000000000000">
+ UNSPECIFIED TOPS VALUES OBTAINED BY ADDING DZ                           
+ TO TOPS VALUE FOR LAYER ABOVE                                           
+</message>
+<message date="1/1/2020" time="0.00000000000000">
+ NEITHER OLDTRAN,OLDTRANR NOR NEWTRAN SPECIFIED                          
+ BLOCK CENTRE TRANSMISSIBILITIES TO BE CALCULATED                        
+ USING  OLDTRAN                                                          
+</message>
+<comment date="1/1/2020" time="0.00000000000000">
+ NO NON-NEIGHBOUR CONNECTIONS FOUND                                      
+</comment>
+<message date="1/1/2020" time="0.00000000000000">
+ NUMBER OF ACTIVE CELLS IS 75                                            
+</message>
+<message date="1/1/2020" time="0.00000000000000">
+ THE MEMORY REQUIRED TO PROCESS THE SOLUTION SECTION IS                  
+     568932 BYTES                                                        
+</message>
+<message date="1/1/2020" time="0.00000000000000">
+    62188 CHARACTER VARIABLES USED                                       
+</message>
+<warning date="1/1/2020" time="0.00000000000000">
+ UNRECOGNISED KEYWORD E RUN SU IN SUMMARY FILE SPECIFICATION             
+</warning>
+<message date="1/1/2020" time="0.00000000000000">
+ OPENING WELL PROD     AT TIME      0.00   DAYS                          
+ CONTROLLED BY LIQUID RATE                                               
+</message>
+<message date="1/1/2020" time="0.00000000000000">
+ OPENING WELL INJ      AT TIME      0.00   DAYS                          
+ CONTROLLED BY WATER RATE                                                
+</message>
+<warning date="1/1/2020" time="0.00000000000000">
+ SPURIOUS DATA BEFORE TSTEP    KEYWORD                                   
+  size (days) of timesteps                                               
+</warning>
+<message date="1/1/2020" time="0.00000000000000">
+ RESTART FILE WRITTEN   REPORT     0                                     
+</message>
+<message date="1/1/2020" time="0.00000000000000">
+ ******************************************                              
+ * WELL PROD     HAS CHANGED TO           *                              
+ * CONTROL BY RESERVOIR FLUID VOLUME RATE *                              
+ * FROM TIME      0.00   DAYS  .          *                              
+ ******************************************                              
+</message>
+<message date="19/7/2020" time="200.00000000000000">
+ RESTART FILE WRITTEN   REPORT     1                                     
+</message>
+<message date="19/7/2020" time="200.00000000000000">
+ ******************************************                              
+ * WELL INJ      HAS CHANGED TO           *                              
+ * CONTROL BY BOTTOM HOLE PRESSURE        *                              
+ * FROM TIME    200.00   DAYS  .          *                              
+ ******************************************                              
+</message>
+<message date="4/2/2021" time="400.00000000000000">
+ RESTART FILE WRITTEN   REPORT     2                                     
+</message>
+<message date="23/8/2021" time="600.00000000000000">
+ RESTART FILE WRITTEN   REPORT     3                                     
+</message>
+<message date="11/3/2022" time="800.00000000000000">
+ RESTART FILE WRITTEN   REPORT     4                                     
+</message>
+<message date="27/9/2022" time="1000.00000000000000">
+ RESTART FILE WRITTEN   REPORT     5                                     
+</message>
+<message date="15/4/2023" time="1200.00000000000000">
+ RESTART FILE WRITTEN   REPORT     6                                     
+</message>
+<message date="1/11/2023" time="1400.00000000000000">
+ RESTART FILE WRITTEN   REPORT     7                                     
+</message>
+<message date="19/5/2024" time="1600.00000000000000">
+ RESTART FILE WRITTEN   REPORT     8                                     
+</message>
+<message date="5/12/2024" time="1800.00000000000000">
+ RESTART FILE WRITTEN   REPORT     9                                     
+</message>
+<message date="23/6/2025" time="2000.00000000000000">
+ RESTART FILE WRITTEN   REPORT    10                                     
+</message>
+</eclipse>

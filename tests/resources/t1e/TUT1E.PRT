@@ -1,0 +1,568 @@
+
+
+
+ $$$$$   $$$   $      $$$  $$$$    $$$   $$$$$     $    $$$    $$$ 
+ $      $   $  $       $   $   $  $   $  $        $$   $   $  $   $
+ $      $      $       $   $   $  $      $         $   $   $  $   $
+ $$$$   $      $       $   $$$$    $$$   $$$$      $   $   $  $   $
+ $      $      $       $   $          $  $         $   $   $  $   $
+ $      $   $  $       $   $      $   $  $         $   $   $  $   $
+ $$$$$   $$$   $$$$$  $$$  $       $$$   $$$$$    $$$   $$$    $$$ 
+
+
+
+                       $$$$$   $$$   $      $$$  $$$$    $$$   $$$$$     $    $$$    $$$ 
+                       $      $   $  $       $   $   $  $   $  $        $$   $   $  $   $
+                       $      $      $       $   $   $  $      $         $   $   $  $   $
+                       $$$$   $      $       $   $$$$    $$$   $$$$      $   $   $  $   $
+                       $      $      $       $   $          $  $         $   $   $  $   $
+                       $      $   $  $       $   $      $   $  $         $   $   $  $   $
+                       $$$$$   $$$   $$$$$  $$$  $       $$$   $$$$$    $$$   $$$    $$$ 
+
+
+
+                                             $$$$$   $$$   $      $$$  $$$$    $$$   $$$$$     $    $$$    $$$ 
+                                             $      $   $  $       $   $   $  $   $  $        $$   $   $  $   $
+                                             $      $      $       $   $   $  $      $         $   $   $  $   $
+                                             $$$$   $      $       $   $$$$    $$$   $$$$      $   $   $  $   $
+                                             $      $      $       $   $          $  $         $   $   $  $   $
+                                             $      $   $  $       $   $      $   $  $         $   $   $  $   $
+                                             $$$$$   $$$   $$$$$  $$$  $       $$$   $$$$$    $$$   $$$    $$$ 
+
+
+
+                                                                   $$$$$   $$$   $      $$$  $$$$    $$$   $$$$$     $    $$$    $$$ 
+                                                                   $      $   $  $       $   $   $  $   $  $        $$   $   $  $   $
+                                                                   $      $      $       $   $   $  $      $         $   $   $  $   $
+                                                                   $$$$   $      $       $   $$$$    $$$   $$$$      $   $   $  $   $
+                                                                   $      $      $       $   $          $  $         $   $   $  $   $
+                                                                   $      $   $  $       $   $      $   $  $         $   $   $  $   $
+                                                                   $$$$$   $$$   $$$$$  $$$  $       $$$   $$$$$    $$$   $$$    $$$ 
+
+Proprietary Notice
+This application contains the confidential and proprietary trade secrets of Schlumberger and may not be copied or stored in an
+information retrieval system, transferred, used, distributed, translated, or retransmitted in any form or by any means, electronic
+or mechanical, in whole or in part, without the express written permission of the copyright owner.
+
+ECLIPSE is a mark of Schlumberger. Copyright (c) 1981-2017 Schlumberger. All rights reserved.
+
+Version =  2017.2  
+Arch    =  PC WINDOWS (64 bit, PC_IL13VS110_OPT)
+
+Annex    | Modification date    | Update date          | baseline             
+=====    | =================    | ===========          | ========             
+ECLIPSE  | 15-DEC-2017 12:50:03 | 07-DEC-2017 11:44:19 | 2017.2_612447
+petlast  | 15-DEC-2017 12:50:03 | 22-JUL-2016 12:14:11 | 2017.2_612447
+system   | 15-DEC-2017 12:50:03 | 28-SEP-2017 20:30:33 | 2017.2_612447
+tpb      | 15-DEC-2017 12:50:03 | 22-JUL-2016 12:14:11 | 2017.2_612447
+utility  | 15-DEC-2017 12:50:04 | 15-SEP-2017 13:01:56 | 2017.2_612447
+ 
+
+1
+
+ ******** ECHO OF INPUT DATA FOR RUN TUT1E
+
+ 0: --
+ 0: --
+ 0: --
+ 0: -- TUT1A.DATA
+ 0: --
+ 0: -- Base case for tutorials
+ 0: --
+ 0: --
+ 0: --
+ 0: --
+ 0: --
+ 0: --================================================================
+ 0: RUNSPEC
+ 0: 
+ 0: 
+ 0: TITLE
+ 0: G11RS - T1 - Tony Hallam
+ 0: 
+ 0: 
+ 0: --        Number of cells
+ 0: --       NX      NY      NZ
+ 0: --       --      --      --
+ 0: DIMENS
+ 0: 5 5 3 /
+ 0: 
+ 0: -- Phases
+ 0: WATER
+ 0: OIL
+ 0: 
+ 0: -- Units
+ 0: FIELD
+ 0: 
+ 0: -- Maximum well/connection/group values
+ 0: --     #wells  #cons/w  #grps  #wells/grp
+ 0: --     ------  -------  -----  ----------
+ 0: WELLDIMS
+ 0: 2 3 2 1 /
+ 0: 
+ 0: -- Maximum number of saturation (relative permeability) tables
+ 0: TABDIMS
+ 0: 2 1 50 50 /
+ 0: 
+ 0: -- Unified output files
+ 0: UNIFOUT
+ 0: 
+ 0: -- Simulation start date
+ 0: START
+ 0: 01 JAN 2020 /
+ 0: 
+ 0: --================================================================
+ 0: GRID
+ 0: 
+ 0: 
+ 0: -- Size of each cell in X, Y and Z directions
+ 0: DXV
+ 0: 5*500 /
+ 0: 
+ 0: DYV
+ 0: 5*500 /
+ 0: 
+ 0: DZ
+ 0: 75*50 /
+ 0: 
+ 0: --TVDSS of top layer of grid cells only
+ 0: --         X1  X2     Y1  Y2     Z1  Z2
+ 0: --         --  --     --  --     --  --
+ 0: BOX
+ 0: 1 5 1 5 1 1 /
+ 0: 
+ 0: TOPS
+ 0: 25*8000 /
+ 0: 
+ 0: ENDBOX
+ 0: 
+ 0: -- Permeability in X, Y and Z directions for each cell
+ 0: PERMX
+ 0: 25*200 25*1000 25*200 /
+ 0: 
+ 0: PERMY
+ 0: 25*150 25*800 25*150 /
+ 0: 
+ 0: PERMZ
+ 0: 25*20 25*100 25*20 /
+ 0: 
+ 0: -- Porosity of each cell
+ 0: PORO
+ 0: 75*0.2 /
+ 0: 
+ 0: -- Output file with geometry and rock properties (.INIT)
+ 0: INIT
+ 0: 
+ 0: --================================================================
+ 0: EDIT
+ 0: 
+ 0: PROPS
+ 0: 
+ 0: 
+ 0: -- Surface densities in lb/ft3
+ 0: --            Oil      Wat
+ 0: --            ---      ---
+ 0: DENSITY
+ 0: 49 63 /
+ 0: 
+ 0: -- PVT data for dead oil
+ 0: --         P         Bo        Vis
+ 0: --       ----       ----      -----
+ 0: PVDO
+ 0: 	300	    1.25    1.0	
+ 0:  	800	    1.20    1.1
+ 0: 	6000    1.15    2.0
+ 0: /
+ 0: 
+ 0: -- PVT data for water
+ 0: --         P         Bw        Cw          Vis
+ 0: --       ----       ----      -----       -----
+ 0: PVTW
+ 0:     4500 1.02 3E-6 0.8 /
+ 0: 
+ 0: -- Rock compressibility
+ 0: --         P           Cr
+ 0: --       ----        -----
+ 0: ROCK
+ 0: 4500 4E-06 /
+ 0: 
+ 0: -- Water and oil rel perms & capillary pressures
+ 0: --         Sw       Krw      Kro      Pc
+ 0: --       -----     -----     ---     ----
+ 0: SWOF
+ 0: -- table 1 for 1000mD rock
+ 0:     0.15   0.0   0.9   4.0
+ 0: 	0.45   0.2   0.3   0.8
+ 0: 	0.68   0.4   0.1   0.2
+ 0: 	0.8    0.55  0.0   0.1
+ 0: /
+ 0: -- table 2 for 200mD rock
+ 0:     0.25   0.0   0.9   9.0
+ 0:     0.5    0.2   0.3   1.8
+ 0:     0.7    0.4   0.1   0.45
+ 0:     0.8    0.55  0.0   0.22
+ 0: /
+ 0: 
+ 0: --================================================================
+ 0: REGIONS
+ 0: 
+ 0: -- Assignation of rel perm tables to each cell
+ 0: SATNUM
+ 0: 25*2 25*1 25*2 /
+ 0: 
+ 0: --================================================================
+ 0: SOLUTION
+ 0: -- Initial equilibration conditions
+ 0: --        Datum   Pi@datum    WOC    Pc@WOC
+ 0: --        -----   --------   -----   ------
+ 0: EQUIL
+ 0: 8075 4500 8500 0 /
+ 0: 
+ 0: -- Output to Restart file for t=0 (.UNRST)
+ 0: --     Restart file with basic output
+ 0: --     for init cond
+ 0: --     -------------
+ 0: RPTRST
+ 0:   BASIC=2 /
+ 0: 
+ 0: 
+ 0: --================================================================
+ 0: SUMMARY
+ 0: 
+ 0: 
+ 0: -- Field average pressure
+ 0: FPR
+ 0: 
+ 0: -- Bottomhole pressure of all wells
+ 0: WBHP
+ 0:  'PROD' 'INJ' /
+ 0: 
+ 0: -- Field Oil Production Rate
+ 0: FOPR
+ 0: 
+ 0: -- Field Water Production Rate
+ 0: FWPR
+ 0: 
+ 0: -- Field Oil Production Total
+ 0: FOPT
+ 0: 
+ 0: -- Field Water Production Total
+ 0: FWPT
+ 0: 
+ 0: -- Water cut in PROD
+ 0: WWCT
+ 0:  'PROD' /
+ 0: 
+ 0: -- CPU usage
+ 0: TCPU
+ 0: 
+ 0: -- Create Excel readable Run Summary file (.RSM)
+ 0: EXCEL
+ 0: 
+ 0: 
+ 0: --================================================================
+ 0: SCHEDULE
+ 0: 
+ 0: -- Output to Restart file for t>0 (.UNRST)
+ 0: --     Restart file with basic output
+ 0: --      every TSTEP
+ 0: --     ------------
+ 0: RPTRST
+ 0: BASIC=2 /
+ 0: 
+ 0: -- Location of wellhead and pressure gauge
+ 0: --      Well  Well   Location   BHP    Pref.
+ 0: --      name  group   I    J   datum   phase
+ 0: --     -----  -----    -   -----   -----
+ 0: WELSPECS
+ 0:   PROD G1 1 1 8000 OIL /
+ 0:   INJ  G2 5 5 8000 WATER /
+ 0: /
+ 0: 
+ 0: -- Completion interval
+ 0: --      Well   Location  Interval  Status           Well
+ 0: --      name    I    J    K1  K2   O or S            ID
+ 0: --      ----    -    -    --  --------          ------
+ 0: COMPDAT
+ 0:   PROD 1 1 1 1 OPEN 2 0 0.667 1* 1* 1* Z 1* /
+ 0:   PROD 1 1 2 2 OPEN 1 0 0.667 1* 1* 1* Z 1* /
+ 0:   PROD 1 1 3 3 OPEN 2 0 0.667 1* 1* 1* Z 1* /
+ 0:   INJ  5 5 1 1 OPEN 2 0 0.667 1* 1* 1* Z 1* /
+ 0:   INJ  5 5 2 2 OPEN 1 0 0.667 1* 1* 1* Z 1* /
+ 0:   INJ  5 5 3 3 OPEN 2 0 0.667 1* 1* 1* Z 1* /
+ 0: /
+ 0: 
+ 0: -- Production control
+ 0: --  Well  Status  Control    Oil   Wat   Gas    Liq  Resv   BHP
+ 0: --  name           mode     rate  rate  rate   rate  rate  limit
+ 0: --  ----  ------  ------    ----  ---- ----   ----  ----  -----
+ 0: WCONPROD
+ 0:   PROD OPEN LRAT 10000 10000 0 10000 10000 2000 0.0 0 0 /
+ 0: /
+ 0: 
+ 0: -- Injection control
+ 0: --  Well  Fluid  Status  Control   Surf   Resv    Voidage   BHP
+ 0: --  NAME  TYPE            mode     rate   rate  frac flag  limit
+ 0: --  ----  -----  ------  -------   --------  ---- ----  -----
+ 0: WCONINJE
+ 0:   INJ WATER OPEN RATE 11000 1* 5000 /
+ 0: /
+ 0: 
+ 0: -- Number and size (days) of timesteps
+ 0: TSTEP
+ 0: 10*200 /
+ 0: 
+ 0: END
+
+ ******** END OF INPUT DATA FOR RUN TUT1E
+     1 READING RUNSPEC 
+     2 READING TITLE   
+     3 READING DIMENS  
+     4 READING WATER   
+     5 READING OIL     
+     6 READING FIELD   
+     7 READING WELLDIMS
+     8 READING TABDIMS 
+     9 READING UNIFOUT 
+    10 READING START   
+    11 READING GRID    
+
+ @--MESSAGE  AT TIME        0.0   DAYS    ( 1-JAN-2020):
+ @           CHECKING FOR LICENSES                                           
+
+ @--MESSAGE  AT TIME        0.0   DAYS    ( 1-JAN-2020):
+ @           CHECKING FOR LICENSES                                           
+
+ @--MESSAGE  AT TIME        0.0   DAYS    ( 1-JAN-2020):
+ @           THE MEMORY REQUIRED TO PROCESS THE GRID SECTION IS              
+ @               193716 BYTES                                                
+    13 READING DXV     
+    14 READING DYV     
+    15 READING DZ      
+    16 READING BOX     
+    17 READING TOPS    
+    18 READING ENDBOX  
+    19 READING PERMX   
+    20 READING PERMY   
+    21 READING PERMZ   
+    22 READING PORO    
+    23 READING INIT    
+    24 READING EDIT    
+
+ @--MESSAGE  AT TIME        0.0   DAYS    ( 1-JAN-2020):
+ @           UNSPECIFIED TOPS VALUES OBTAINED BY ADDING DZ                   
+ @           TO TOPS VALUE FOR LAYER ABOVE                                   
+
+ @--MESSAGE  AT TIME        0.0   DAYS    ( 1-JAN-2020):
+ @           NEITHER OLDTRAN,OLDTRANR NOR NEWTRAN SPECIFIED                  
+ @           BLOCK CENTRE TRANSMISSIBILITIES TO BE CALCULATED                
+ @           USING  OLDTRAN                                                  
+    25 READING PROPS   
+
+ @--COMMENT  AT TIME        0.0   DAYS    ( 1-JAN-2020):
+ @           NO NON-NEIGHBOUR CONNECTIONS FOUND                              
+
+ @--MESSAGE  AT TIME        0.0   DAYS    ( 1-JAN-2020):
+ @           NUMBER OF ACTIVE CELLS IS 75                                    
+
+ @--MESSAGE  AT TIME        0.0   DAYS    ( 1-JAN-2020):
+ @           THE MEMORY REQUIRED TO PROCESS THE SOLUTION SECTION IS          
+ @               568932 BYTES                                                
+
+ @--MESSAGE  AT TIME        0.0   DAYS    ( 1-JAN-2020):
+ @              62188 CHARACTER VARIABLES USED                               
+    26 READING DENSITY 
+    27 READING PVDO    
+    28 READING PVTW    
+    29 READING ROCK    
+    30 READING SWOF    
+    31 READING REGIONS 
+    32 READING SATNUM  
+    33 READING SOLUTION
+    34 READING EQUIL   
+    35 READING RPTRST  
+    36 READING SUMMARY 
+    37 READING FPR     
+    38 READING WBHP    
+    39 READING FOPR    
+    40 READING FWPR    
+    41 READING FOPT    
+    42 READING FWPT    
+    43 READING WWCT    
+    44 READING TCPU    
+    45 READING EXCEL   
+    46 READING SCHEDULE
+    47 READING RPTRST  
+    48 READING WELSPECS
+    49 READING COMPDAT 
+    50 READING WCONPROD
+
+ @--MESSAGE  AT TIME        0.0   DAYS    ( 1-JAN-2020):
+ @           OPENING WELL PROD     AT TIME      0.00   DAYS                  
+ @           CONTROLLED BY LIQUID RATE                                       
+    51 READING WCONINJE
+
+ @--MESSAGE  AT TIME        0.0   DAYS    ( 1-JAN-2020):
+ @           OPENING WELL INJ      AT TIME      0.00   DAYS                  
+ @           CONTROLLED BY WATER RATE                                        
+    52 READING TSTEP   
+
+ @--MESSAGE  AT TIME        0.0   DAYS    ( 1-JAN-2020):
+ @           RESTART FILE WRITTEN   REPORT     0                             
+1                             **********************************************************************   1
+  SIMULATE AT      0.00  DAYS *G11RS - T1 - Tony Hallam                                                * ECLIPSE  VERSION 2017.2     
+  REPORT   0     1 JAN 2020   *  RUN                                                                   * RUN AT 10:31 ON 24 JAN 2020 
+                              **************************************************************************
+
+ @--MESSAGE  AT TIME        0.0   DAYS    ( 1-JAN-2020):
+ @           ******************************************                      
+ @           * WELL PROD     HAS CHANGED TO           *                      
+ @           * CONTROL BY RESERVOIR FLUID VOLUME RATE *                      
+ @           * FROM TIME      0.00   DAYS  .          *                      
+ @           ******************************************                      
+
+ STEP    1 TIME=      1.00  DAYS (    +1.0  DAYS INIT  3 ITS) (2-JAN-2020)       
+  PAV=  4503.3  PSIA   WCT=0.000 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ @--MESSAGE  AT TIME        1.0   DAYS    ( 2-JAN-2020):
+ @           ******************************************                      
+ @           * WELL INJ      HAS CHANGED TO           *                      
+ @           * CONTROL BY BOTTOM HOLE PRESSURE        *                      
+ @           * FROM TIME      1.00   DAYS  .          *                      
+ @           ******************************************                      
+
+ STEP    2 TIME=      3.40  DAYS (    +2.4  DAYS TRNC  2 ITS) (4-JAN-2020)       
+  PAV=  4505.9  PSIA   WCT=0.001 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ STEP    3 TIME=     10.61  DAYS (    +7.2  DAYS MAXF  2 ITS) (11-JAN-2020)      
+  PAV=  4497.9  PSIA   WCT=0.001 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ STEP    4 TIME=     24.37  DAYS (   +13.8  DAYS TRNC  2 ITS) (25-JAN-2020)      
+  PAV=  4476.8  PSIA   WCT=0.001 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ STEP    5 TIME=     43.65  DAYS (   +19.3  DAYS TRNC  3 ITS) (13-FEB-2020)      
+  PAV=  4456.9  PSIA   WCT=0.001 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ STEP    6 TIME=     70.18  DAYS (   +26.5  DAYS TRNC  2 ITS) (11-MAR-2020)      
+  PAV=  4457.3  PSIA   WCT=0.000 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ STEP    7 TIME=    112.27  DAYS (   +42.1  DAYS TRNC  2 ITS) (22-APR-2020)      
+  PAV=  4467.4  PSIA   WCT=0.000 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ STEP    8 TIME=    156.13  DAYS (   +43.9  DAYS HALF  2 ITS) (5-JUN-2020)       
+  PAV=  4484.6  PSIA   WCT=0.001 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ STEP    9 TIME=    200.00  DAYS (   +43.9  DAYS REPT  2 ITS) (19-JLY-2020)      
+  PAV=  4501.8  PSIA   WCT=0.001 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ @--MESSAGE  AT TIME      200.0   DAYS    (19-JLY-2020):
+ @           RESTART FILE WRITTEN   REPORT     1                             
+1                             **********************************************************************   2
+  SIMULATE AT    200.00  DAYS *G11RS - T1 - Tony Hallam                                                * ECLIPSE  VERSION 2017.2     
+  REPORT   1    19 JLY 2020   *  RUN                                                                   * RUN AT 10:31 ON 24 JAN 2020 
+                              **************************************************************************
+
+ STEP   10 TIME=    297.91  DAYS (   +97.9  DAYS TRNC  3 ITS) (24-OCT-2020)      
+  PAV=  4520.5  PSIA   WCT=0.006 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ STEP   11 TIME=    400.00  DAYS (  +102.1  DAYS REPT  2 ITS) (4-FEB-2021)       
+  PAV=  4531.7  PSIA   WCT=0.017 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ @--MESSAGE  AT TIME      400.0   DAYS    ( 4-FEB-2021):
+ @           RESTART FILE WRITTEN   REPORT     2                             
+1                             **********************************************************************   3
+  SIMULATE AT    400.00  DAYS *G11RS - T1 - Tony Hallam                                                * ECLIPSE  VERSION 2017.2     
+  REPORT   2     4 FEB 2021   *  RUN                                                                   * RUN AT 10:31 ON 24 JAN 2020 
+                              **************************************************************************
+
+ STEP   12 TIME=    500.00  DAYS (  +100.0  DAYS HALF  2 ITS) (15-MAY-2021)      
+  PAV=  4539.7  PSIA   WCT=0.036 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ STEP   13 TIME=    600.00  DAYS (  +100.0  DAYS REPT  2 ITS) (23-AUG-2021)      
+  PAV=  4545.6  PSIA   WCT=0.064 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ @--MESSAGE  AT TIME      600.0   DAYS    (23-AUG-2021):
+ @           RESTART FILE WRITTEN   REPORT     3                             
+1                             **********************************************************************   4
+  SIMULATE AT    600.00  DAYS *G11RS - T1 - Tony Hallam                                                * ECLIPSE  VERSION 2017.2     
+  REPORT   3    23 AUG 2021   *  RUN                                                                   * RUN AT 10:31 ON 24 JAN 2020 
+                              **************************************************************************
+
+ STEP   14 TIME=    800.00  DAYS (  +200.0  DAYS REPT  3 ITS) (11-MAR-2022)      
+  PAV=  4554.2  PSIA   WCT=0.158 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ @--MESSAGE  AT TIME      800.0   DAYS    (11-MAR-2022):
+ @           RESTART FILE WRITTEN   REPORT     4                             
+1                             **********************************************************************   5
+  SIMULATE AT    800.00  DAYS *G11RS - T1 - Tony Hallam                                                * ECLIPSE  VERSION 2017.2     
+  REPORT   4    11 MAR 2022   *  RUN                                                                   * RUN AT 10:31 ON 24 JAN 2020 
+                              **************************************************************************
+
+ STEP   15 TIME=   1000.00  DAYS (  +200.0  DAYS REPT  3 ITS) (27-SEP-2022)      
+  PAV=  4561.3  PSIA   WCT=0.279 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ @--MESSAGE  AT TIME     1000.0   DAYS    (27-SEP-2022):
+ @           RESTART FILE WRITTEN   REPORT     5                             
+1                             **********************************************************************   6
+  SIMULATE AT   1000.00  DAYS *G11RS - T1 - Tony Hallam                                                * ECLIPSE  VERSION 2017.2     
+  REPORT   5    27 SEP 2022   *  RUN                                                                   * RUN AT 10:31 ON 24 JAN 2020 
+                              **************************************************************************
+
+ STEP   16 TIME=   1200.00  DAYS (  +200.0  DAYS REPT  3 ITS) (15-APR-2023)      
+  PAV=  4567.3  PSIA   WCT=0.399 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ @--MESSAGE  AT TIME     1200.0   DAYS    (15-APR-2023):
+ @           RESTART FILE WRITTEN   REPORT     6                             
+1                             **********************************************************************   7
+  SIMULATE AT   1200.00  DAYS *G11RS - T1 - Tony Hallam                                                * ECLIPSE  VERSION 2017.2     
+  REPORT   6    15 APR 2023   *  RUN                                                                   * RUN AT 10:31 ON 24 JAN 2020 
+                              **************************************************************************
+
+ STEP   17 TIME=   1400.00  DAYS (  +200.0  DAYS REPT  2 ITS) (1-NOV-2023)       
+  PAV=  4572.3  PSIA   WCT=0.501 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ @--MESSAGE  AT TIME     1400.0   DAYS    ( 1-NOV-2023):
+ @           RESTART FILE WRITTEN   REPORT     7                             
+1                             **********************************************************************   8
+  SIMULATE AT   1400.00  DAYS *G11RS - T1 - Tony Hallam                                                * ECLIPSE  VERSION 2017.2     
+  REPORT   7     1 NOV 2023   *  RUN                                                                   * RUN AT 10:31 ON 24 JAN 2020 
+                              **************************************************************************
+
+ STEP   18 TIME=   1600.00  DAYS (  +200.0  DAYS REPT  2 ITS) (19-MAY-2024)      
+  PAV=  4576.9  PSIA   WCT=0.583 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ @--MESSAGE  AT TIME     1600.0   DAYS    (19-MAY-2024):
+ @           RESTART FILE WRITTEN   REPORT     8                             
+1                             **********************************************************************   9
+  SIMULATE AT   1600.00  DAYS *G11RS - T1 - Tony Hallam                                                * ECLIPSE  VERSION 2017.2     
+  REPORT   8    19 MAY 2024   *  RUN                                                                   * RUN AT 10:31 ON 24 JAN 2020 
+                              **************************************************************************
+
+ STEP   19 TIME=   1800.00  DAYS (  +200.0  DAYS REPT  2 ITS) (5-DEC-2024)       
+  PAV=  4581.2  PSIA   WCT=0.649 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ @--MESSAGE  AT TIME     1800.0   DAYS    ( 5-DEC-2024):
+ @           RESTART FILE WRITTEN   REPORT     9                             
+1                             **********************************************************************  10
+  SIMULATE AT   1800.00  DAYS *G11RS - T1 - Tony Hallam                                                * ECLIPSE  VERSION 2017.2     
+  REPORT   9     5 DEC 2024   *  RUN                                                                   * RUN AT 10:31 ON 24 JAN 2020 
+                              **************************************************************************
+
+ STEP   20 TIME=   2000.00  DAYS (  +200.0  DAYS REPT  2 ITS) (23-JUN-2025)      
+  PAV=  4584.9  PSIA   WCT=0.705 GOR= 0.00000  MSCF/STB WGR= 0.00000  STB/MSCF   
+
+ @--MESSAGE  AT TIME     2000.0   DAYS    (23-JUN-2025):
+ @           RESTART FILE WRITTEN   REPORT    10                             
+    53 READING END     
+            8 Mbytes of storage required                         
+ 110.0365     KB/active cell                                     
+           23 Mbytes (image size)                                
+
+ Error summary 
+ Comments               1
+ Warnings               0
+ Problems               0
+ Errors                 0
+ Bugs                   0
+ Final cpu      30.44 elapsed      30.44
+ Total number of time steps forced to be accepted          0
