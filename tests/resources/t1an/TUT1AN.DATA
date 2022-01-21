@@ -1,0 +1,256 @@
+--
+--
+--
+-- TUT1A.DATA
+--
+-- Base case for tutorials
+--
+-- 
+--
+--  
+--
+--================================================================
+RUNSPEC
+
+
+TITLE
+G11RS - T1 - Tony Hallam
+
+
+--        Number of cells
+--       NX      NY      NZ
+--       --      --      --
+DIMENS
+5 5 3 /
+
+-- Phases
+WATER
+OIL
+
+-- Units
+FIELD
+
+-- Maximum well/connection/group values
+--     #wells  #cons/w  #grps  #wells/grp
+--     ------  -------  -----  ----------
+WELLDIMS
+2 3 2 1 /
+
+-- Maximum number of saturation (relative permeability) tables
+TABDIMS
+2 1 50 50 /
+
+-- Unified output files
+-- UNIFOUT
+MULTOUT
+
+-- Simulation start date
+START
+01 JAN 2020 /
+
+--================================================================
+GRID
+
+
+-- Size of each cell in X, Y and Z directions
+DXV
+5*500 /
+
+DYV
+5*500 /
+
+DZ
+75*50 /
+
+--TVDSS of top layer of grid cells only
+--         X1  X2     Y1  Y2     Z1  Z2
+--         --  --     --  --     --  --
+BOX
+1 5 1 5 1 1 /
+
+TOPS
+25*8000 /
+
+ENDBOX
+
+-- Permeability in X, Y and Z directions for each cell
+PERMX
+25*200 25*1000 25*200 /
+
+PERMY
+25*150 25*800 25*150 /
+
+PERMZ
+25*20 25*100 25*20 /
+
+-- Porosity of each cell
+PORO
+75*0.2 /
+
+ACTNUM
+30*1 15*0 30*1 /
+
+-- Output file with geometry and rock properties (.INIT)
+INIT
+
+--================================================================
+EDIT
+
+PROPS
+
+
+-- Surface densities in lb/ft3
+--            Oil      Wat
+--            ---      ---
+DENSITY
+49 63 /
+
+-- PVT data for dead oil
+--         P         Bo        Vis
+--       ----       ----      -----
+PVDO
+	300	    1.25    1.0	
+ 	800	    1.20    1.1
+	6000    1.15    2.0
+/
+
+-- PVT data for water
+--         P         Bw        Cw          Vis
+--       ----       ----      -----       -----
+PVTW
+    4500 1.02 3E-6 0.8 /
+
+-- Rock compressibility
+--         P           Cr
+--       ----        -----
+ROCK
+4500 4E-06 /
+
+-- Water and oil rel perms & capillary pressures
+--         Sw       Krw      Kro      Pc
+--       -----     -----     ---     ----
+SWOF
+-- table 1 for 1000mD rock
+    0.15   0.0   0.9   4.0
+	0.45   0.2   0.3   0.8
+	0.68   0.4   0.1   0.2
+	0.8    0.55  0.0   0.1
+/
+-- table 2 for 200mD rock
+    0.25   0.0   0.9   9.0
+    0.5    0.2   0.3   1.8
+    0.7    0.4   0.1   0.45
+    0.8    0.55  0.0   0.22
+/
+
+--================================================================
+REGIONS 
+
+-- Assignation of rel perm tables to each cell
+SATNUM
+25*2 25*1 25*2 /
+
+--================================================================
+SOLUTION
+-- Initial equilibration conditions
+--        Datum   Pi@datum    WOC    Pc@WOC
+--        -----   --------   -----   ------
+EQUIL
+8075 4500 8500 0 /
+
+-- Output to Restart file for t=0 (.UNRST)
+--     Restart file with basic output
+--     for init cond
+--     -------------
+RPTRST
+  BASIC=2 /
+
+
+--================================================================
+SUMMARY
+
+
+-- Field average pressure
+FPR
+
+-- Bottomhole pressure of all wells
+WBHP
+ 'PROD' 'INJ' /
+
+-- Field Oil Production Rate
+FOPR
+
+-- Field Water Production Rate
+FWPR
+
+-- Field Oil Production Total
+FOPT
+
+-- Field Water Production Total
+FWPT
+
+-- Water cut in PROD
+WWCT
+ 'PROD' /
+
+-- CPU usage
+TCPU
+
+-- Create Excel readabl
+e Run Summary file (.RSM)
+EXCEL
+
+
+--================================================================
+SCHEDULE
+
+-- Output to Restart file for t>0 (.UNRST)
+--     Restart file with basic output
+--      every TSTEP
+--     ------------
+RPTRST
+BASIC=2 /
+
+-- Location of wellhead and pressure gauge
+--      Well  Well   Location   BHP    Pref.
+--      name  group   I    J   datum   phase
+--     -----  ----    -    -   -----   -----
+WELSPECS
+  PROD G1 1 1 8000 OIL /
+  INJ  G2 5 5 8000 WATER /
+/
+
+-- Completion interval
+--      Well   Location  Interval  Status           Well
+--      name    I    J    K1  K2   O or S            ID
+--      ----    -    -    --  --   ------          ------
+COMPDAT
+  PROD 1 1 1 1 OPEN 2 0 0.667 1* 1* 1* Z 1* /
+  PROD 1 1 2 2 OPEN 1 0 0.667 1* 1* 1* Z 1* /
+  PROD 1 1 3 3 OPEN 2 0 0.667 1* 1* 1* Z 1* /
+  INJ  5 5 1 1 OPEN 2 0 0.667 1* 1* 1* Z 1* /
+  INJ  5 5 2 2 OPEN 1 0 0.667 1* 1* 1* Z 1* /
+  INJ  5 5 3 3 OPEN 2 0 0.667 1* 1* 1* Z 1* /
+/
+
+-- Production control
+--  Well  Status  Control    Oil   Wat   Gas    Liq  Resv   BHP
+--  name           mode     rate  rate  rate   rate  rate  limit
+--  ----  ------  ------    ----  ----  ----   ----  ----  -----
+WCONPROD
+  PROD OPEN LRAT 10000 10000 0 10000 10000 2000 0.0 0 0 /
+/
+
+-- Injection control
+--  Well  Fluid  Status  Control   Surf   Resv    Voidage   BHP
+--  NAME  TYPE            mode     rate   rate  frac flag  limit
+--  ----  -----  ------  -------   ----   ----  ---- ----  -----
+WCONINJE
+  INJ WATER OPEN RATE 11000 1* 6000 /
+/
+
+-- Number and size (days) of timesteps
+TSTEP
+10*200 /
+
+END
