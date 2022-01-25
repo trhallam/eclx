@@ -7,7 +7,6 @@ import pandas as pd
 
 from ecl import EclFileEnum
 from ecl.eclfile import EclFile
-from ecl.eclfile.ecl_restart_file import EclRestartHead
 
 from ._ecl_file import open_EclFile, load_ecl_property
 from ._utils import import_tqdm, get_ecl_deck
