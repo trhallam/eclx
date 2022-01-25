@@ -277,64 +277,6 @@ class EclResult:
         else:
             self.data = self.data.join(data.iloc[:, 5:])
 
-    # def _set_rst_step(self, filename, report_step):
-    #     erst = EclFile(str(filename))
-    #     intehead_kw = erst["INTEHEAD"][0]
-    #     doubhead_kw = erst["DOUBHEAD"][0]
-    #     try:
-    #         logihead_kw = erst["LOGIHEAD"][0]
-    #     except KeyError:
-    #         logihead_kw = None
-    #     headers = EclRestartHead(
-    #         kw_arg=(report_step, intehead_kw, doubhead_kw, logihead_kw)
-    #     )
-    #     simdate = headers.getSimDate()
-    #     pd_date = pd.to_datetime(
-    #         f"{simdate.year:4d}-{simdate.month:02d}-{simdate.day:02d}"
-    #     )
-    #     simdays = headers.getSimDays()
-    #     order = [
-    #         "report",
-    #         "date",
-    #         "year",
-    #         "month",
-    #         "day",
-    #         "ordinal",
-    #         "simdays",
-    #         "filename",
-    #     ]
-    #     newdate = pd.Series(
-    #         data={
-    #             key: val
-    #             for key, val in zip(
-    #                 order,
-    #                 [
-    #                     report_step,
-    #                     pd_date,
-    #                     simdate.year,
-    #                     simdate.month,
-    #                     simdate.day,
-    #                     simdate.toordinal(),
-    #                     simdays,
-    #                     filename,
-    #                 ],
-    #             )
-    #         },
-    #         name=report_step,
-    #     )
-    #     self.dates = self.dates.append(newdate, ignore_index=False)[order]
-    #     self.dates = self.dates.reset_index().drop(columns=["index"])
-    #     self.dates = self.dates.astype(
-    #         {
-    #             key: val
-    #             for key, val in zip(
-    #                 order, [int, np.datetime64, int, int, int, int, int, str]
-    #             )
-    #         }
-    #     )
-    #     self.reports = self.dates.report.to_list()
-    #     del headers
-
     def set_rst(self, filepath):
         """Load the report list and create report list dictionary
 
@@ -355,26 +297,6 @@ class EclResult:
         self.dates = get_restart_reports(filepath)
         self.reports = self.dates["report"].to_list()
 
-        # if file_type == EclFileEnum.ECL_RESTART_FILE:
-        #     self._unified_rst = False
-        #     if self._rst_file_map is None:
-        #         self._rst_file_map = dict()
-        #         self.dates = pd.DataFrame()
-        #     self._rst_file_map[report_step] = filename
-        #     self._set_rst_step(filename, report_step)
-        #     self.reports_dict = {r: i for i, r in enumerate(self.reports)}
-        # else:
-        #     self._unified_rst = True
-        #     self._set_rst_unified(filename)
-
-    def report_summary(self):
-        """Print a summary of the report steps"""
-        print(f"Index: RNumber: Year: Month: Day:")
-        print(f"---------------------------------")
-        for i, r in enumerate(self.reports):
-            #     f" Index RNumber Year Month Day"
-            d = self.dates.iloc[i, :]
-            print(f"{i:6d} {r:8d} {d.year:5d} {d.month:6d} {d.day:4d}")
 
     def load_rst(self, reports=None, keys=None):
         """Load the restart file

@@ -7,9 +7,10 @@ import pandas as pd
 
 from ecl import EclFileEnum
 from ecl.eclfile import EclFile
+from ecl.eclfile.ecl_restart_file import EclRestartHead
 
 from ._ecl_file import open_EclFile, load_ecl_property
-from ._utils import import_tqdm
+from ._utils import import_tqdm, get_ecl_deck
 
 tqdm = import_tqdm()
 
@@ -26,12 +27,6 @@ def is_restart_file(filepath):
         EclFileEnum.ECL_RESTART_FILE,
         EclFileEnum.ECL_UNIFIED_RESTART_FILE,
     ]
-
-
-def get_deck_restart_files(filepath):
-    """Uses a filepath stub to find all related restart files in a folder."""
-    # TODO:
-    pass
 
 
 def is_restart_unified(filepath):
@@ -66,25 +61,18 @@ def _get_restart_reports_unified(filepath):
             report=reports, date=dates, year=year, month=month, day=day, ordinal=ordinal
         )
     )
-    report_df["file"] = filepath
+    report_df["file"] = str(filepath)
+    report_df["file_index"] = report_df.index.values
     return report_df
 
 
-def _get_restart_reports_ununified(filepath):
+def _get_restart_reports_ununified(filepaths):
     """Get the restart report df if the restart is split into files"""
-    with open_EclFile(filepath) as erst:
-        intehead_kw = erst["INTEHEAD"][0]
-        doubhead_kw = erst["DOUBHEAD"][0]
-
-        try:
-            logihead_kw = erst["LOGIHEAD"][0]
-        except KeyError:
-            logihead_kw = None
-        headers = EclRestartHead(
-            kw_arg=(report_step, intehead_kw, doubhead_kw, logihead_kw)
-        )
-    # TODO: FINISH THIS ONCE YOU HAVE AN UNUNIFIED EXAMPLE DATASET
-
+    reports = [
+        _get_restart_reports_unified(filepath) for filepath in filepaths
+    ]
+    report_df = pd.concat(reports).reset_index(drop=True)
+    return report_df
 
 def get_restart_reports(filepath):
     """Get the list of restart files."""
@@ -93,7 +81,8 @@ def get_restart_reports(filepath):
     if is_restart_unified(filepath):
         return _get_restart_reports_unified(filepath)
     else:
-        raise NotImplementedError  # see function stubs above
+        deck_files = get_ecl_deck(filepath)
+        return _get_restart_reports_ununified(deck_files["RST"])
 
 
 def load_ecl_rst(filepath, grid_filepath=None, reports=None, keys=None, silent=True):
@@ -125,9 +114,10 @@ def load_ecl_rst(filepath, grid_filepath=None, reports=None, keys=None, silent=T
                 vals["file"],
                 keys=keys,
                 grid_filepath=grid_filepath,
-                report_index=vals["report"],
+                report_index=vals["file_index"],
                 silent=silent,
             )
+
             if data is not None:
                 data = data.join(_td.iloc[:, 5:])
             else:

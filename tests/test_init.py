@@ -8,7 +8,7 @@ from eclx._init import (
 
 
 def test_load_init_intehead(eclipse_runs):
-    filepath = eclipse_runs.with_suffix(".INIT")
+    filepath = eclipse_runs["INIT"][0]
 
     intehead = load_init_intehead(filepath)
     assert isinstance(intehead, dict)

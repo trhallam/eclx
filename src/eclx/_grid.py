@@ -8,9 +8,11 @@ import pandas as pd
 
 from ecl.grid import EclGrid
 
-from ._utils import import_tqdm
+from ._utils import import_tqdm, get_filetype, EclFileEnum
 
 tqdm = import_tqdm()
+
+GRID_FILE_TYPES = [EclFileEnum.ECL_GRID_FILE, EclFileEnum.ECL_EGRID_FILE]
 
 
 def _corner_names():
@@ -46,9 +48,12 @@ def open_EclGrid(filepath):
     egrid = None
     # safety clause for loading eclipse data with ecl
     try:
+        file_type = get_filetype(filepath)
+        if file_type not in GRID_FILE_TYPES:
+            raise ValueError
         egrid = EclGrid.load_from_file(str(filepath.absolute()))
         yield egrid
-    except ValueError:
+    except (ValueError, OSError): # OSError on windows
         raise ValueError(f"cannot interpret file type {filepath}")
     finally:
         del egrid

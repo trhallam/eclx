@@ -1,6 +1,10 @@
-import chunk
 import importlib
+import pathlib
+import re
 from more_itertools import chunked
+
+from ecl.eclfile import EclFile
+from ecl.ecl_util import EclFileEnum, EclUtil
 
 
 def import_tqdm():
@@ -23,6 +27,42 @@ def _check_ijk_dim(df):
         return df["i"].max(), df["j"].max(), df["k"].max()
     else:
         return (None, None, None)
+
+
+def get_filetype(filepath):
+    """Safely check what type of ecl file it is."""
+    filepath = pathlib.Path(filepath)
+    if not filepath.exists():
+        raise FileNotFoundError(f"Cannot find input grid file {filepath}")
+
+
+    return EclUtil.get_file_type(str(filepath))
+
+
+def get_ecl_deck_files(filepath):
+    """Scan a folder based upon a DATA file to find all corresponding files."""
+    filepath = pathlib.Path(filepath)
+
+    parent_path = filepath.parent
+    if not parent_path.exists():
+        raise FileNotFoundError(f"Cannot find input deck folder {parent_path}")
+
+    stem = filepath.stem
+
+    deck = {deck_file:get_filetype(deck_file) for deck_file in parent_path.iterdir() if deck_file.stem == stem}
+    return deck
+
+
+def get_ecl_deck(filepath):
+    """"""
+    files = get_ecl_deck_files(filepath)
+    return {
+        "DATA": tuple(f for f, v in files.items() if v == EclFileEnum.ECL_DATA_FILE),
+        "GRID": tuple(f for f, v in files.items() if v in [EclFileEnum.ECL_EGRID_FILE, EclFileEnum.ECL_GRID_FILE]),
+        "INIT": tuple(f for f, v in files.items() if v == EclFileEnum.ECL_INIT_FILE),
+        "SUM": tuple(f for f, v in files.items() if v in [EclFileEnum.ECL_SUMMARY_FILE, EclFileEnum.ECL_UNIFIED_SUMMARY_FILE]),
+        "RST": tuple(f for f, v in files.items() if v in [EclFileEnum.ECL_RESTART_FILE, EclFileEnum.ECL_UNIFIED_RESTART_FILE, ]),
+    }
 
 
 def write_petrel(
