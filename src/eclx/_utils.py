@@ -35,7 +35,6 @@ def get_filetype(filepath):
     if not filepath.exists():
         raise FileNotFoundError(f"Cannot find input grid file {filepath}")
 
-
     return EclUtil.get_file_type(str(filepath))
 
 
@@ -49,7 +48,11 @@ def get_ecl_deck_files(filepath):
 
     stem = filepath.stem
 
-    deck = {deck_file:get_filetype(deck_file) for deck_file in parent_path.iterdir() if deck_file.stem == stem}
+    deck = {
+        deck_file: get_filetype(deck_file)
+        for deck_file in parent_path.iterdir()
+        if deck_file.stem == stem
+    }
     return deck
 
 
@@ -58,14 +61,28 @@ def get_ecl_deck(filepath):
     files = get_ecl_deck_files(filepath)
     found_files = {
         "DATA": (f for f, v in files.items() if v == EclFileEnum.ECL_DATA_FILE),
-        "GRID": (f for f, v in files.items() if v in [EclFileEnum.ECL_EGRID_FILE, EclFileEnum.ECL_GRID_FILE]),
+        "GRID": (
+            f
+            for f, v in files.items()
+            if v in [EclFileEnum.ECL_EGRID_FILE, EclFileEnum.ECL_GRID_FILE]
+        ),
         "INIT": (f for f, v in files.items() if v == EclFileEnum.ECL_INIT_FILE),
-        "SUM": (f for f, v in files.items() if v in [EclFileEnum.ECL_SUMMARY_FILE, EclFileEnum.ECL_UNIFIED_SUMMARY_FILE]),
-        "RST": (f for f, v in files.items() if v in [EclFileEnum.ECL_RESTART_FILE, EclFileEnum.ECL_UNIFIED_RESTART_FILE, ]),
+        "SUM": (
+            f
+            for f, v in files.items()
+            if v in [EclFileEnum.ECL_SUMMARY_FILE, EclFileEnum.ECL_UNIFIED_SUMMARY_FILE]
+        ),
+        "RST": (
+            f
+            for f, v in files.items()
+            if v
+            in [
+                EclFileEnum.ECL_RESTART_FILE,
+                EclFileEnum.ECL_UNIFIED_RESTART_FILE,
+            ]
+        ),
     }
-    return {
-        k:tuple(sorted(v)) for k,v in found_files.items()
-    }
+    return {k: tuple(sorted(v)) for k, v in found_files.items()}
 
 
 def write_petrel(

@@ -1,10 +1,19 @@
+from nbformat import write
 import click
 import pathlib
 from loguru import logger
 
 from dataicer import ice, deice, register_handlers, DirectoryHandler
 
-from . import load_summary_df, get_ecl_deck, get_summary_keys, get_ecl_property_keys, get_restart_reports, EclResult, __version__
+from . import (
+    load_summary_df,
+    get_ecl_deck,
+    get_summary_keys,
+    get_ecl_property_keys,
+    get_restart_reports,
+    EclDeck,
+    __version__,
+)
 
 
 ELASTIC_INIT = ["PORV", "PORO", "NTG", "SATNUM"]
@@ -16,6 +25,7 @@ ELASTIC_RST = ["PRESSURE", "SWAT", "SGAS", "RS"]
 def main():
     pass
 
+
 @main.command()
 @click.argument("file", nargs=1, type=click.STRING)
 @click.argument("curves", nargs=-1, type=click.STRING)
@@ -23,8 +33,7 @@ def main():
 @click.option("-csv", help="Export to csv file.", nargs=1)
 @click.option("-hdf", help="Export to hdf file.", nargs=1)
 def summary(file, curves, keys, csv, hdf):
-    """Export the summary data as a table.
-    """
+    """Export the summary data as a table."""
     deck = get_ecl_deck(file)
 
     has_curves = get_summary_keys(deck["SUM"][0])
@@ -44,11 +53,11 @@ def summary(file, curves, keys, csv, hdf):
     if not csv and not hdf:
         print(sumdf)
 
+
 @main.command()
 @click.argument("file", nargs=1, type=click.STRING)
 def report(file):
-    """[summary]
-    """
+    """[summary]"""
     deck = get_ecl_deck(file)
 
     click.secho("Parent Directory:", fg="green")
@@ -78,21 +87,24 @@ def report(file):
     click.secho("\nRST Reports:", fg="blue")
     click.secho(reports)
 
+
 @main.command()
 @click.argument("file", nargs=1, type=click.STRING)
 @click.option(
-    "-d", "--dir",
+    "-d",
+    "--export-dir",
     help="export directory if not supplied output location will be the model directory",
     default=None,
-    )
+)
 @click.option(
-    "-ts", "--time-steps",
+    "-ts",
+    "--time-steps",
     help="choose report time steps for output e.g. '-ts=0,10'; to get "
     "report numbers use 'eclx reports <model>` and select "
     "the numbers from the 'report' column.",
     default=None,
-    type=click.STRING
-    )
+    type=click.STRING,
+)
 @click.option(
     "-e",
     "--elastic",
@@ -101,10 +113,18 @@ def report(file):
     help="Load and output only KW necessary for sim2seis and sim2imp",
 )
 @click.option(
-    "-ki", "--keys_init", help="INIT Keys for export as comma separated list.", default=None, type=click.STRING
+    "-ki",
+    "--keys_init",
+    help="INIT Keys for export as comma separated list.",
+    default=None,
+    type=click.STRING,
 )
 @click.option(
-    "-kr", "--keys_rst", help="RESTART Keys for export as comma separated list.", default=None, type=click.STRING
+    "-kr",
+    "--keys_rst",
+    help="RESTART Keys for export as comma separated list.",
+    default=None,
+    type=click.STRING,
 )
 @click.option(
     "--flip_hand",
@@ -115,43 +135,51 @@ def report(file):
     "direction.",
 )
 @click.option(
-    "-fw",
-    "--fixed-width",
-    is_flag=True,
-    default=False,
-    help="Outputs in fixed width format tables",
+    "-V", "--verbose", is_flag=True, default=False, help="Enable additional output"
 )
-@click.option(
-    "-V", "--verbose",
-    is_flag=True,
-    default=False,
-    help="Enable additional output"
-)
-def simx(file, dir, time_steps, elastic, keys_init, keys_rst, flip_hand, fixed_width, verbose):
-    """Export the grid and simulation results as
-    """
+def simx(
+    file,
+    export_dir,
+    time_steps,
+    elastic,
+    keys_init,
+    keys_rst,
+    flip_hand,
+    csv,
+    csv_delim,
+    verbose,
+):
+    """Export the grid and simulation results as"""
     deck = get_ecl_deck(file)
 
     if verbose:
         click.secho("Parent Directory:", fg="green")
-        click.secho(deck["DATA"][0].parent)
+        try:
+            click.secho(deck["DATA"][0].parent)
+        except IndexError:
+            click.secho("DATA file does not exist", fg="red")
+            raise SystemExit
 
         for dt, locs in deck.items():
             click.secho(f"{dt} FILES:", fg="green")
             click.secho([l.name for l in locs])
 
     file = pathlib.Path(file)
-    if dir is None:
-        dir = file.parent / file.stem
+    if export_dir is None:
+        export_dir = file.parent / file.stem
     else:
-        dir = pathlib.Path(dir)
+        export_dir = pathlib.Path(export_dir)
 
-    assert dir.parent.exists()
+    assert export_dir.parent.exists()
 
-    sim = EclResult(silent=~verbose)
-    sim.set_grid(deck["GRID"][0])
-    sim.set_init(deck["INIT"][0])
-    sim.set_rst(deck["RST"][0])
+    sim = EclDeck(silent=~verbose)
+    try:
+        sim.set_grid(deck["GRID"][0])
+        sim.set_init(deck["INIT"][0])
+        sim.set_rst(deck["RST"][0])
+    except IndexError as e:
+        click.secho("Could not find input files, check with '-V'", err=True, fg="red")
+        raise SystemExit
 
     if time_steps is None:
         time_steps_str = map(str, sim.reports)
@@ -171,7 +199,6 @@ def simx(file, dir, time_steps, elastic, keys_init, keys_rst, flip_hand, fixed_w
         keys_init = ELASTIC_INIT
     else:
         keys_init = get_ecl_property_keys(deck["INIT"][0])
-
 
     if keys_rst is not None:
         keys_rst = list(keys_rst.split(","))
@@ -194,11 +221,8 @@ def simx(file, dir, time_steps, elastic, keys_init, keys_rst, flip_hand, fixed_w
     sim.load_init(keys=keys_init)
     sim.load_rst(reports=list(time_steps), keys=keys_rst)
 
-    if not fixed_width:
-        dh = DirectoryHandler(dir, mode="w")
+    if not csv:
+        dh = DirectoryHandler(export_dir, mode="w")
         register_handlers(dh, numpy="txt", xarray="nc", pandas="h5")
 
         ice(dh, eclxsim=sim)
-
-    else:
-        raise NotImplementedError
