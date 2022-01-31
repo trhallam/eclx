@@ -12,7 +12,7 @@ def open_EclSum(filepath):
     """Safely open an EclSum instance with a context manager"""
     filepath = pathlib.Path(filepath)
     if not filepath.exists():
-        raise FileNotFoundError(f"Cannot find input grid file {filepath}")
+        raise FileNotFoundError(f"Cannot find input summary file {filepath}")
 
     efile = None
     # safety clause for loading eclipse data with ecl

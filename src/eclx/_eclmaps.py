@@ -90,3 +90,11 @@ class EclUnitScaler(Enum):
         volume=1,
         unitless=1,
     )
+
+
+class EclipseAsciiTypeMap(Enum):
+    INTE = int
+    REAL = float
+    CHAR = str
+    LOGI = bool
+    DOUB = float
