@@ -1,5 +1,6 @@
 from ._version import version as __version__
 
+from ._eclascii import EclAsciiParser
 from ._ecldeck import EclDeck
 from ._utils import get_filetype, get_ecl_deck
 from ._ecl_file import (

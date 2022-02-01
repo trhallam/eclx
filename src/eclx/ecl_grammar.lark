@@ -1,0 +1,61 @@
+// Parser for Eclipse KW Files
+// TERMINUS in caps
+// rules in lowercase
+// https://www.lark-parser.org/ide/
+
+
+// Parser for Eclipse KW Files
+// TERMINUS in caps
+// rules in lowercase
+
+start: sections
+sections: [ keyword_line | keyword_tab ]+
+
+// basic keyword lines
+key: KEYWORD
+keyword_line.1: key nl
+// diferentiation at front needed to avoid comment lines being matched
+KEYWORD: /[A-Z0-9][A-Z0-9-+]{2,7}/
+
+// ecl types
+ECL_EXPANSION: /[1-9]+[0-9]*\*/ [NUMBER | _EXP | WORD]
+ECL_STRING: /'[0-9A-Za-z]+'/
+ECL_EQUALS: /[0-9A-Za-z]+=[0-9A-Za-z]+/
+ECL_ITEM: WORD
+        | NUMBER
+        | _EXP
+        | ECL_EXPANSION
+        | ECL_STRING
+        | ECL_EQUALS
+
+// keyword simple tab line and tab
+data: ECL_ITEM* "/" nl
+
+tab_line: data
+keyword_tab.2: keyword_line tab_line+
+
+// keyword multitab
+// multi_tab_line: WS_INLINE* ECL_ITEM+ WS_INLINE* COMMENT?
+// multi_tab_sub: multi_tab_line+ tab_line
+// multi_tab.8: keyword_line multi_tab_sub+ WS* "/" WS_INLINE* COMMENT?
+
+// comments and empty lines
+COMMENT: /--.*/
+COMMENT_LINE: /^--.*/ NL
+EMPTY_LINE: /^\s*/ NL
+          | NL
+
+// imports WORD from library
+%import common.WS_INLINE
+%import common.WS
+%import common.NEWLINE -> NL
+%import common.WORD
+%import common.NUMBER
+%import common._EXP
+nl.2: NL
+
+// Disregard spaces in text
+%ignore EMPTY_LINE
+%ignore WS_INLINE
+%ignore COMMENT
+%ignore COMMENT_LINE

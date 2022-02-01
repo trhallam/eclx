@@ -14,7 +14,7 @@ RUNSPEC
 
 
 TITLE
-G11RS - T1 - Tony Hallam
+G11RS T1 Tony Hallam
 
 
 --        Number of cells
@@ -192,8 +192,7 @@ WWCT
 -- CPU usage
 TCPU
 
--- Create Excel readabl
-e Run Summary file (.RSM)
+-- Create Excel readable Run Summary file (.RSM)
 EXCEL
 
 

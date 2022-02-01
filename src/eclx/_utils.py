@@ -1,6 +1,5 @@
 import importlib
 import pathlib
-import re
 from more_itertools import chunked
 
 from ecl.eclfile import EclFile
