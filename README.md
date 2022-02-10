@@ -1,4 +1,6 @@
-# eclx
+# eclx - [![latest-version](https://img.shields.io/pypi/v/eclx?color=006dad&label=pypi_version&logo=Python&logoColor=white)](https://pypi.org/project/eclx)
+
+![Test](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/trhallam/3383896c25bd99987cb78b098d18cf32/raw/eclx_test.json) [![Code Style](https://img.shields.io/badge/code_style-black-000000.svg)](https://github.com/psf/black) [![Licence](https://img.shields.io/badge/license-GPLv3-brightgreen)](https://github.com/trhallam/dataicer/blob/main/LICENSE)
 
 Functions and CLI for extracting data from Eclipse run decks and results.
 
