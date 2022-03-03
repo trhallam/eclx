@@ -2,7 +2,12 @@ import click
 import pathlib
 from loguru import logger
 
-from dataicer import ice, deice, register_handlers, DirectoryHandler
+from dataicer import DirectoryHandler
+from dataicer.plugins import (
+    get_numpy_handlers,
+    get_pandas_handlers,
+    get_xarray_handlers,
+)
 
 from . import (
     load_summary_df,
@@ -125,14 +130,14 @@ def report(file):
     default=None,
     type=click.STRING,
 )
-@click.option(
-    "--flip_hand",
-    is_flag=True,
-    default=False,
-    help="Flip the handedness of the simulation grid. This is "
-    "equivalent to reversing the cell numbering in the J "
-    "direction.",
-)
+# @click.option(
+#     "--flip_hand",
+#     is_flag=True,
+#     default=False,
+#     help="Flip the handedness of the simulation grid. This is "
+#     "equivalent to reversing the cell numbering in the J "
+#     "direction.",
+# )
 @click.option(
     "-V", "--verbose", is_flag=True, default=False, help="Enable additional output"
 )
@@ -143,9 +148,6 @@ def simx(
     elastic,
     keys_init,
     keys_rst,
-    flip_hand,
-    csv,
-    csv_delim,
     verbose,
 ):
     """Export the grid and simulation results as"""
@@ -220,8 +222,7 @@ def simx(
     sim.load_init(keys=keys_init)
     sim.load_rst(reports=list(time_steps), keys=keys_rst)
 
-    if not csv:
-        dh = DirectoryHandler(export_dir, mode="w")
-        register_handlers(dh, numpy="txt", xarray="nc", pandas="h5")
-
-        ice(dh, eclxsim=sim)
+    handlers = get_pandas_handlers(mode="h5", array_mode="npz")
+    handlers.update(get_xarray_handlers())
+    dh = DirectoryHandler(export_dir, handlers, mode="w")
+    dh.ice(eclxsim=sim)
