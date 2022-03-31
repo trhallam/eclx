@@ -36,7 +36,10 @@ pip install eclx
 
 ```
 from eclx import (
-  EclResult, # class for handling ecl decks
+  EclDeck, # class for handling ecl decks
+  open_EclFile, # context manager for Ecl files e.g. INIT, UNRST
+  open_EclGrid, # context manager for Ecl grid files e.g. EGRID
+  open_EclSum, # context manager for Ecl summary files e.g. SUM
   get_filetype, # method to discover the type of Eclipse file
   get_ecl_deck,  # method to get all related files in an Eclipse deck, requires the files are named the same
   load_ecl_property, # load a 3d grid property (requires the grid file) as a dataframe

@@ -3,6 +3,7 @@
 import pathlib
 import contextlib
 from typing import Type
+from warnings import warn
 
 import numpy as np
 
@@ -82,7 +83,9 @@ def load_ecl_property(
     if grid_filepath is None and not deck_files["GRID"]:
         raise ValueError("Cannot find a grid file for this deck, please specify one.")
     elif grid_filepath is None:
-        grid_filepath = deck_files["GRID"][0]  # ecl looks for grid files referenced to the init name
+        grid_filepath = deck_files["GRID"][
+            0
+        ]  # ecl looks for grid files referenced to the init name
 
     if keys is None:  # get all keys
         keys_to_load = get_ecl_property_keys(filepath)
@@ -112,6 +115,11 @@ def load_ecl_property(
             map(lambda x: x[0], filter(lambda x: x[1] == active_size, headers))
         )
         ktl = headers.intersection(keys_to_load)
+
+        if not ktl:
+            warn(
+                "None of the selected keys to load match the provided grid active cell count. No properties will be loaded."
+            )
 
         for var in (pbar := tqdm(ktl, disable=silent, leave=True)):
             pbar.set_description(f"Loading KW: {var}")
