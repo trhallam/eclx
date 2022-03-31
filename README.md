@@ -5,6 +5,10 @@
        alt="Python Tests">
         <img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/trhallam/0da415ee1bf30b0fc37a2fc4ddafbdee/raw/eclx_test.json" />
     </a>
+    <a href="https://github.com/trhallam/eclx/actions"
+       alt="Python Test Coverage">
+        <img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/trhallam/0da415ee1bf30b0fc37a2fc4ddafbdee/raw/eclx_coverage.json" />
+    </a>
     <a href="https://github.com/psf/black" 
        alt="black">
         <img src="https://img.shields.io/badge/code_style-black-000000.svg" />
@@ -20,7 +24,7 @@ Functions and CLI for extracting data from Eclipse run decks and results.
 
 This library builds upon [ecl](github.com/equinor/ecl) and add safer/easier methods using context managers to extract data.
 
-Currenly `ecl` is only available via pip on Linux and MacOS but windows installable artifacts can be found [here](github.com/trhallam/ecl).
+Currently `ecl` is only available via pip on Linux and MacOS but windows installable artifacts can be found [here](github.com/trhallam/ecl).
 
 ## Installation
 
