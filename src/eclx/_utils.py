@@ -1,5 +1,6 @@
 import importlib
 import pathlib
+import multiprocessing as mp
 from more_itertools import chunked
 
 from ecl.eclfile import EclFile
@@ -82,6 +83,40 @@ def get_ecl_deck(filepath):
         ),
     }
     return {k: tuple(sorted(v)) for k, v in found_files.items()}
+
+
+def _mp_eclsub(handler, filepath):
+    efile = handler(str(filepath))
+    del efile
+
+
+def test_open_eclfile(handler, filepath):
+    """Safely test whether a handler can open a file.
+
+    Args:
+        handler: An EclFile instance or derivative.
+        filepath: The file to test
+
+    Returns:
+        subprocess results
+
+    Raise:
+        ValueErorr: If file opening does not exit cleanly.
+    """
+    proc = mp.Process(
+        target=_mp_eclsub,
+        args=(
+            handler,
+            filepath,
+        ),
+    )
+    proc.start()
+    proc.join()
+    if proc.exitcode != 0:
+        raise ValueError(
+            f"The ECL file {filepath} was incompatible with the handler {handler}"
+        )
+    return proc
 
 
 def write_petrel(

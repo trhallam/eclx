@@ -6,6 +6,8 @@ import contextlib
 from typing import Type
 
 from ecl.summary import EclSum
+from ._utils import test_open_eclfile
+
 
 @contextlib.contextmanager
 def open_EclSum(filepath):
@@ -14,6 +16,7 @@ def open_EclSum(filepath):
     if not filepath.exists():
         raise FileNotFoundError(f"Cannot find input summary file {filepath}")
 
+    _ = test_open_eclfile(EclSum, filepath)
     efile = None
     # safety clause for loading eclipse data with ecl
     try:
@@ -44,9 +47,7 @@ def load_summary_df(filepath, curves=None):
     _has_curves = get_summary_keys(filepath)
 
     if curves:
-        unknown_curves = [
-            c for c in curves if c not in _has_curves
-        ]
+        unknown_curves = [c for c in curves if c not in _has_curves]
     else:
         curves = _has_curves
         unknown_curves = []

@@ -4,6 +4,12 @@ import pytest
 from eclx import get_ecl_deck
 
 
+@pytest.fixture
+def resources():
+    here = pathlib.Path(__file__).parent
+    return here / "resources"
+
+
 @pytest.fixture(
     params=[("t1a", "TUT1A"), ("t1e", "TUT1E"), ("t1an", "TUT1AN"), ("t1uu", "TUT1UU")]
 )
